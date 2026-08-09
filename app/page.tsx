@@ -16,11 +16,6 @@ export default function Home() {
           <div className="w-full h-full absolute inset-0 flex flex-col justify-center overflow-hidden px-4 sm:px-8 md:px-16 lg:px-24 z-10">
              <PinterestGallery />
           </div>
-
-          <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center text-xs tracking-widest uppercase text-black/60 z-10 font-medium">
-            Scroll Down
-            <div className="mt-2 text-[10px] animate-bounce">↓</div>
-          </div>
         </main>
       </div>
     </div>

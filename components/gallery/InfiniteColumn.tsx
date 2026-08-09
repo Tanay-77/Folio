@@ -15,8 +15,8 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
     gsap.registerPlugin(ScrollTrigger);
 
     let ctx = gsap.context(() => {
-      // speed is around 0.85 to 1.0. We use it to vary the distance traveled.
-      const targetY = -33.333333 * speed;
+      // Reduce the base multiplier from 33.33 to 15 to slow down the parallax scrolling distance
+      const targetY = -15 * speed;
 
       if (direction === 'up') {
         gsap.fromTo(el, 

@@ -17,7 +17,7 @@ export default function Home() {
              </h1>
           </div>
 
-          <div className="w-full flex-grow flex flex-col justify-center overflow-hidden py-16 sm:py-24 px-4 sm:px-8 md:px-16 lg:px-24 z-10">
+          <div className="w-full h-full absolute inset-0 flex flex-col justify-center overflow-hidden px-4 sm:px-8 md:px-16 lg:px-24 z-10">
              <PinterestGallery />
           </div>
 

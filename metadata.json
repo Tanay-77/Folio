@@ -1,0 +1,8 @@
+{
+  "name": "Tanay® Portfolio",
+  "description": "Minimal, experimental editorial portfolio homepage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

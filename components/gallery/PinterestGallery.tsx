@@ -25,10 +25,6 @@ export function PinterestGallery() {
   return (
     <div 
       className="w-full h-[65vh] sm:h-[75vh] grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 overflow-hidden relative z-10"
-      style={{
-        maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
-      }}
     >
       <InfiniteColumn pins={cols[0]} direction="up" speed={0.9} />
       <InfiniteColumn pins={cols[1]} direction="down" speed={1.0} />

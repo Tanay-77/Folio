@@ -1,6 +1,7 @@
 import { FloatingNav } from '@/components/navigation/FloatingNav';
 import { ExpandButton } from '@/components/navigation/ExpandButton';
 import { PinterestGallery } from '@/components/gallery/PinterestGallery';
+import { FolioText } from '@/components/gallery/FolioText';
 
 export default function Home() {
   return (
@@ -10,12 +11,7 @@ export default function Home() {
           <FloatingNav />
           <ExpandButton />
           
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-             <h1 className="text-[25vw] md:text-[28vw] font-serif leading-none tracking-tighter text-[#0f0f0f] flex items-start">
-               Folio
-               <span className="text-[6vw] md:text-[7vw] mt-[4vw] md:mt-[3vw] ml-1 font-sans font-medium">®</span>
-             </h1>
-          </div>
+          <FolioText />
 
           <div className="w-full h-full absolute inset-0 flex flex-col justify-center overflow-hidden px-4 sm:px-8 md:px-16 lg:px-24 z-10">
              <PinterestGallery />

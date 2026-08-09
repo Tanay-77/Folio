@@ -1,32 +1,72 @@
 import { NextResponse } from 'next/server';
 import { PinData } from '@/lib/pinterest/types';
 
-// Diverse set of fallback images mimicking a Pinterest moodboard (portraits, design, abstract, editorial)
-const FALLBACK_PINS: PinData[] = [
-  { id: '1', imageUrl: 'https://picsum.photos/seed/a1/400/600', width: 400, height: 600 },
-  { id: '2', imageUrl: 'https://picsum.photos/seed/a2/600/400', width: 600, height: 400 },
-  { id: '3', imageUrl: 'https://picsum.photos/seed/a3/500/750', width: 500, height: 750 },
-  { id: '4', imageUrl: 'https://picsum.photos/seed/a4/400/400', width: 400, height: 400 },
-  { id: '5', imageUrl: 'https://picsum.photos/seed/a5/450/600', width: 450, height: 600 },
-  { id: '6', imageUrl: 'https://picsum.photos/seed/a6/500/500', width: 500, height: 500 },
-  { id: '7', imageUrl: 'https://picsum.photos/seed/a7/600/800', width: 600, height: 800 },
-  { id: '8', imageUrl: 'https://picsum.photos/seed/a8/700/450', width: 700, height: 450 },
-  { id: '9', imageUrl: 'https://picsum.photos/seed/a9/400/650', width: 400, height: 650 },
-  { id: '10', imageUrl: 'https://picsum.photos/seed/a10/500/400', width: 500, height: 400 },
-  { id: '11', imageUrl: 'https://picsum.photos/seed/a11/600/900', width: 600, height: 900 },
-  { id: '12', imageUrl: 'https://picsum.photos/seed/a12/400/400', width: 400, height: 400 },
-  { id: '13', imageUrl: 'https://picsum.photos/seed/a13/450/700', width: 450, height: 700 },
-  { id: '14', imageUrl: 'https://picsum.photos/seed/a14/550/400', width: 550, height: 400 },
-  { id: '15', imageUrl: 'https://picsum.photos/seed/a15/500/600', width: 500, height: 600 },
-  { id: '16', imageUrl: 'https://picsum.photos/seed/a16/800/600', width: 800, height: 600 },
-  { id: '17', imageUrl: 'https://picsum.photos/seed/a17/400/550', width: 400, height: 550 },
-  { id: '18', imageUrl: 'https://picsum.photos/seed/a18/500/500', width: 500, height: 500 },
-  { id: '19', imageUrl: 'https://picsum.photos/seed/a19/600/850', width: 600, height: 850 },
-  { id: '20', imageUrl: 'https://picsum.photos/seed/a20/700/500', width: 700, height: 500 },
-];
+export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
-  // If we had a real PINTEREST_ACCESS_TOKEN, we'd fetch from Pinterest here.
-  // We'll return the high-quality fallbacks for this implementation.
-  return NextResponse.json({ pins: FALLBACK_PINS, fallback: true });
+  try {
+    const rssUrl = 'https://in.pinterest.com/tanaymahajan7/best-work.rss';
+    
+    // Fetch the RSS feed
+    const response = await fetch(rssUrl, {
+      next: { revalidate: 3600 }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Pinterest RSS: ${response.status} ${response.statusText}`);
+    }
+    
+    const xml = await response.text();
+
+    // Parse XML using regex since it's a simple flat list
+    const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+    const items = [];
+    let match;
+    while ((match = itemRegex.exec(xml)) !== null) {
+      items.push(match[1]);
+    }
+
+    const pins: PinData[] = items.map((item, index) => {
+      // Extract image URL from description
+      // Description typically looks like: &lt;img src=&quot;https://i.pinimg.com/236x/...&quot;&gt;
+      const imgRegex = /src=&quot;([^&]+)&quot;/i;
+      const imgMatch = item.match(imgRegex);
+      
+      let imageUrl = imgMatch ? imgMatch[1] : '';
+      
+      // Pinterest thumbnails in RSS are usually 236x. To get high-res, replace '236x' with '736x' or 'originals'
+      // 736x is usually the most reliable high-quality format that still loads reasonably fast
+      if (imageUrl) {
+        imageUrl = imageUrl.replace(/\/\d+x\//, '/736x/');
+      }
+
+      // Extract link to Pinterest pin
+      const linkRegex = /<link>([^<]+)<\/link>/i;
+      const linkMatch = item.match(linkRegex);
+      const pinterestUrl = linkMatch ? linkMatch[1] : undefined;
+      
+      // Extract title
+      const titleRegex = /<title>([^<]+)<\/title>/i;
+      const titleMatch = item.match(titleRegex);
+      const title = titleMatch ? titleMatch[1].trim() : undefined;
+
+      // Generate pseudo-random aspect ratios for masonry layout effect since RSS doesn't provide them
+      const heights = [500, 600, 700, 800, 550, 650, 750];
+      const randomHeight = heights[index % heights.length];
+
+      return {
+        id: `pin-${index}-${Date.now()}`,
+        imageUrl,
+        width: 500,
+        height: randomHeight,
+        pinterestUrl,
+        title,
+      };
+    }).filter(pin => pin.imageUrl !== ''); // Remove any pins where image parsing failed
+
+    return NextResponse.json({ pins });
+  } catch (error) {
+    console.error('Pinterest fetch error:', error);
+    return NextResponse.json({ pins: [], error: 'Failed to fetch pins' }, { status: 500 });
+  }
 }

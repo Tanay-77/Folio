@@ -5,7 +5,7 @@ import { FolioText } from '@/components/gallery/FolioText';
 
 export default function Home() {
   return (
-    <div className="h-[200vh] bg-white">
+    <div className="h-[600vh] bg-white">
       <div className="sticky top-0 w-full h-screen font-sans">
         <main className="relative w-full h-full bg-white overflow-hidden flex flex-col items-center justify-between">
           <FloatingNav />

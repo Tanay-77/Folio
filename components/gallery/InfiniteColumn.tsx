@@ -15,8 +15,8 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
     gsap.registerPlugin(ScrollTrigger);
 
     let ctx = gsap.context(() => {
-      // Reduce the base multiplier from 33.33 to 15 to slow down the parallax scrolling distance
-      const targetY = -15 * speed;
+      // Adjusted the multiplier to match the new 600vh page height (so speed feels similar)
+      const targetY = -45 * speed;
 
       if (direction === 'up') {
         gsap.fromTo(el, 
@@ -38,7 +38,7 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
           { y: '0vh', yPercent: -100 },
           { 
             y: '100vh',
-            yPercent: -100 - targetY, // targetY is negative, so this is -100 - (-33.33) = -66.66 
+            yPercent: -100 - targetY, 
             ease: 'none',
             scrollTrigger: {
               trigger: document.body,
@@ -54,7 +54,8 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
     return () => ctx.revert();
   }, [pins, direction, speed]);
 
-  const duplicatedPins = [...pins, ...pins, ...pins];
+  // Duplicate the pins enough times to span a very long scroll without running out
+  const duplicatedPins = [...pins, ...pins, ...pins, ...pins, ...pins, ...pins, ...pins, ...pins, ...pins, ...pins];
 
   return (
     <div className={`relative h-full overflow-visible ${className}`}>

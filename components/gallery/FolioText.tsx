@@ -21,7 +21,7 @@ export function FolioText() {
         scrollTrigger: {
           trigger: document.body,
           start: 'top top',
-          end: 'bottom bottom',
+          end: '+=800', // Fades out completely after 800px of scrolling
           scrub: 1,
         }
       });

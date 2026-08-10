@@ -24,7 +24,7 @@ export function PinterestGallery() {
 
   return (
     <div 
-      className="w-full h-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 overflow-hidden relative z-10"
+      className="w-full h-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 overflow-hidden relative z-10"
     >
       <InfiniteColumn pins={cols[0]} direction="up" speed={0.9} />
       <InfiniteColumn pins={cols[1]} direction="down" speed={1.0} />

@@ -19,11 +19,11 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
       const targetY = -45 * speed;
 
       if (direction === 'up') {
-        gsap.fromTo(el, 
+        gsap.fromTo(el,
           { y: '100vh', yPercent: 0 },
-          { 
+          {
             y: '0vh',
-            yPercent: targetY, 
+            yPercent: targetY,
             ease: 'none',
             scrollTrigger: {
               trigger: document.body,
@@ -34,11 +34,11 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
           }
         );
       } else {
-        gsap.fromTo(el, 
+        gsap.fromTo(el,
           { y: '0vh', yPercent: -100 },
-          { 
+          {
             y: '100vh',
-            yPercent: -100 - targetY, 
+            yPercent: -100 - targetY,
             ease: 'none',
             scrollTrigger: {
               trigger: document.body,
@@ -59,7 +59,7 @@ export function InfiniteColumn({ pins, direction, speed, className = '' }: { pin
 
   return (
     <div className={`relative h-full overflow-visible ${className}`}>
-      <div ref={columnRef} className="flex flex-col gap-4 sm:gap-6 md:gap-8 w-full absolute top-0 left-0 will-change-transform">
+      <div ref={columnRef} className="flex flex-col gap-2 sm:gap-3 md:gap-4 w-full absolute top-0 left-0 will-change-transform">
         {duplicatedPins.map((pin, idx) => (
           <GalleryImage key={`${pin.id}-${idx}`} pin={pin} />
         ))}

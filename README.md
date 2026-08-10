@@ -1,10 +1,10 @@
-# Folio - Minimalist 3D Parallax Portfolio
+# Folio
 
 A modern, highly visual, Pinterest-powered portfolio built with Next.js, TailwindCSS, and GSAP.
 
 It features a cinematic 3D depth-masked hero section that gracefully fades away to reveal a continuous masonry gallery powered directly by a Pinterest board.
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Install dependencies:
    ```bash
@@ -16,7 +16,7 @@ It features a cinematic 3D depth-masked hero section that gracefully fades away 
    ```
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 📌 How to Showcase Your Own Pinterest Board
+## How to Showcase Your Own Pinterest Board
 
 This portfolio is entirely data-driven via Pinterest. When you pin an image to your board, it automatically shows up on your website!
 
@@ -30,7 +30,7 @@ To connect your own board:
 
 That's it! Your website will automatically fetch and display the latest 25 pins from your board in the masonry gallery.
 
-## 🎨 Customizing the 3D Depth Masking Hero
+## Customizing the 3D Depth Masking Hero
 
 The stunning "Folio" text effect at the top of the page uses parallax depth masking. To customize it with your own scene:
 1. **Background:** Add your background scene image to the `public/` folder and name it `image copy.png` (or update the filename in `components/gallery/FolioText.tsx`).
@@ -39,5 +39,5 @@ The stunning "Folio" text effect at the top of the page uses parallax depth mask
 
 The text will automatically perfectly sandwich itself between your background and foreground images!
 
-## 🔗 Customizing Links
+## Customizing Links
 Don't forget to update the floating action button in `components/navigation/ExpandButton.tsx` to point to your own Pinterest or social media profile!

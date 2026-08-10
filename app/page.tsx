@@ -1,4 +1,4 @@
-import { FloatingNav } from '@/components/navigation/FloatingNav';
+
 import { ExpandButton } from '@/components/navigation/ExpandButton';
 import { PinterestGallery } from '@/components/gallery/PinterestGallery';
 import { FolioText } from '@/components/gallery/FolioText';
@@ -8,7 +8,7 @@ export default function Home() {
     <div className="h-[600vh] bg-white">
       <div className="sticky top-0 w-full h-screen font-sans">
         <main className="relative w-full h-full bg-white overflow-hidden flex flex-col items-center justify-between">
-          <FloatingNav />
+
           <ExpandButton />
           
           <FolioText />

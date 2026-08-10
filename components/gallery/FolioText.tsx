@@ -60,9 +60,9 @@ export function FolioText() {
         className="absolute inset-0 w-full h-full object-cover z-20 pointer-events-none"
       />
 
-      <div ref={scrollRef} className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center text-xs tracking-widest uppercase text-black/60 z-10 font-medium pointer-events-none">
+      <div ref={scrollRef} className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center text-xs tracking-widest uppercase text-white drop-shadow-md z-30 font-medium pointer-events-none">
         Scroll Down
-        <div className="mt-2 text-[10px] animate-bounce">↓</div>
+        <div className="mt-2 text-[10px]">↓</div>
       </div>
     </>
   );

@@ -85,25 +85,22 @@ export function Loader() {
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-[#0a0a0a] text-[#f3f3f3] py-8 md:py-16"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a] text-[#f3f3f3]"
     >
-      <div />
-      
       <div ref={contentRef} className="flex flex-col items-center justify-center">
-        
+
         {/* Smooth Image Crossfade Container */}
         <div className="w-48 h-64 md:w-72 md:h-[350px] mb-10 relative overflow-hidden bg-[#111] flex items-center justify-center rounded-sm shadow-2xl">
           {images.length > 0 ? (
             images.map((src, idx) => (
-              <img 
+              <img
                 key={src}
-                src={src} 
-                alt="Loading..." 
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1200ms] ease-in-out ${
-                  idx === currentImageIndex 
-                    ? 'opacity-100 scale-105' 
-                    : 'opacity-0 scale-100'
-                }`}
+                src={src}
+                alt="Loading..."
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1200ms] ease-in-out ${idx === currentImageIndex
+                  ? 'opacity-100 scale-105'
+                  : 'opacity-0 scale-100'
+                  }`}
               />
             ))
           ) : (
@@ -116,11 +113,14 @@ export function Loader() {
           <span className="text-[4vw] md:text-[2vw] mt-[0.5vw] ml-1 font-sans font-medium">®</span>
         </h1>
         <div className="mt-4 text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-500">
-          Creative Portfolio
+          Photography Portfolio
         </div>
       </div>
 
-      <div ref={progressRef} className="text-[15vw] md:text-[8vw] font-serif tabular-nums leading-none flex items-baseline">
+      <div
+        ref={progressRef}
+        className="absolute bottom-8 right-8 md:bottom-12 md:right-12 text-[15vw] md:text-[8vw] font-serif tabular-nums leading-none flex items-baseline"
+      >
         {progress}
         <span className="text-[5vw] md:text-[2vw] ml-2 text-gray-500 font-sans">%</span>
       </div>
